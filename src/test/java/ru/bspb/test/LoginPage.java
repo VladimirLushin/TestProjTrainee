@@ -19,7 +19,7 @@ public class LoginPage {
     @FindBy(name = "password")
     public WebElement passwordInput;
 
-    @FindBy(id = "login-button")
+    @FindBy(css = "#login-button")
     public WebElement loginbutton;
 
     @FindBy(css = "#login-form > div:nth-child(7) > div")
@@ -67,9 +67,9 @@ public class LoginPage {
     public void clickRestoreAccessBtn(){
         restoreAccessBtn.click();
     }
-    /*public void clickCloseRestoreAccessBtn(){
+    public void clickCloseRestoreAccessBtn(){
         closeRestoreAccessBtn.click();
-    }*/
+    }
     public String getPasswordInputType(){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("password")));
@@ -77,7 +77,7 @@ public class LoginPage {
     }
     public String getRestoreAccessDisplayAttr(){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#security-rules-dialog-popup")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("#security-rules-dialog-popup")));
         return restoreAccessPopUp.getAttribute("style");
     }
 }
