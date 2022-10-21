@@ -1,4 +1,4 @@
-package ru.bspb.test;
+package ru.bspb.cucumber.test;
 
 import java.io.FileInputStream;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package ru.bspb.test;
+package ru.bspb.cucumber.test;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
