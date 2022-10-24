@@ -6,6 +6,7 @@ import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
+import io.qameta.allure.Attachment;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.By;
@@ -308,4 +309,5 @@ public class MyStepdefs {
                 .as("Проверка на закрытие ПопАпа при нажатие соответстующей кнопки")
                 .contains("none");
     }
+
 }

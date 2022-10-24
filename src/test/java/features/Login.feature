@@ -1,5 +1,5 @@
 #language: ru
-@Login
+@LoginMainPageFunctional
 Функция: Проверка поля логин
 
   Структура сценария:  Корректность ввода в поля

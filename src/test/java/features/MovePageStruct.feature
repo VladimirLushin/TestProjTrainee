@@ -1,5 +1,5 @@
 # language: ru
-@MoveToLoginPage
+@LoginMainPageFunctional
 Функция: переход на новую страницу по ссылкам
 
   Структура сценария: Переход на другую страницу по ссылкам из popover'a
