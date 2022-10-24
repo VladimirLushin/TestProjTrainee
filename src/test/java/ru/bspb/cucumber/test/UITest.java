@@ -325,7 +325,7 @@ public class UITest {
                 .as("Проверка иконки банка на переход на домашнюю страницу");
     }
 
-    @Test
+  /*  @Test
     public void partsLinksTest() {
         List<String> partsLinks = driver
                 .findElements(By.cssSelector("css-tchm6t"))
@@ -333,7 +333,7 @@ public class UITest {
                     return link.getAttribute("href");
                 }).toList();
 
-    }
+    } */
 
     public static List<String> getPopoverHeaderText() {
         return driver.findElements(By.cssSelector(".css-6pxx36"))
