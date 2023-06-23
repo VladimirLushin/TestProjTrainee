@@ -7,12 +7,15 @@ import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
 import io.qameta.allure.Attachment;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import ru.bspb.cucumber.test.ConfProp;
 import ru.bspb.cucumber.test.Finals;
 import ru.bspb.cucumber.test.LoginPage;
@@ -22,7 +25,7 @@ import java.time.Duration;
 import java.util.*;
 
 public class MyStepdefs {
-    public static WebDriver driver;
+    public static ChromeDriver driver;
     public static MainPage mainPage;
     public static LoginPage loginPage;
     public static SoftAssertions softAssertions;
@@ -31,7 +34,9 @@ public class MyStepdefs {
     public void setup(){
         System.setProperty("webdriver.chrome.driver", ConfProp.getProperty("chromedriver"));
         linksSet = new ArrayList<>();
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        driver = new ChromeDriver(options);
         mainPage = new MainPage(driver);
         loginPage = new LoginPage(driver);
         driver.manage().window().maximize();
@@ -64,7 +69,9 @@ public class MyStepdefs {
         mainPage.clickGoToLoginPageBtn();
     }
 
+
     @Тогда("пользователь  на странице входа в личный кабинет")
+    @Severity(SeverityLevel.NORMAL)
     public void goToLoginPageTest() {
         List<String> tabsURL = driver.getWindowHandles().stream().map((tab) -> {
             driver.switchTo().window(tab);
@@ -90,6 +97,7 @@ public class MyStepdefs {
         }
     }
     @И("Пользователь перешел на соответсвующую страницу {string}")
+    @Severity(SeverityLevel.CRITICAL)
     public void goToNewPagesByPopoverLinksTest(String section_name) {
         switch (section_name) {
             case "Cards" -> {
@@ -144,6 +152,7 @@ public class MyStepdefs {
     }
 
     @Тогда("Пользователь наблюдает соответствующие данные {string}")
+    @Severity(SeverityLevel.TRIVIAL)
     public void checkDataCorrect(String section_name) {
         switch (section_name) {
             case "Cards" -> {
@@ -229,12 +238,14 @@ public class MyStepdefs {
     }
 
     @Тогда("оказывается на {string} {string}")
+    @Severity(SeverityLevel.CRITICAL)
     public void checkCurrentPage(String expected_page, String button_name) {
         Assertions.assertThat(driver.getCurrentUrl()).as("Проверка работы кнопки: " + button_name).isEqualTo(expected_page);
     }
 
 
     @Тогда("введенные данные совпадают с наблюдаемыми {string} {string}" )
+    @Severity(SeverityLevel.BLOCKER)
     public void checkEnteredData(String login, String password) {
         softAssertions.assertThat(loginPage.getUsername())
                 .as("Проверка корректности ввода данных в поле логин")
@@ -261,6 +272,7 @@ public class MyStepdefs {
     }
 
     @Тогда("пароль становится видимым")
+    @Severity(SeverityLevel.TRIVIAL)
     public void checkPasswordVisibilityTrue() {
         Assertions.assertThat(loginPage.getPasswordInputType())
                 .as("Проверка видимости пароля с невидимого на видимый")
@@ -268,6 +280,7 @@ public class MyStepdefs {
     }
 
     @Тогда("пароль становится невидимым")
+    @Severity(SeverityLevel.TRIVIAL)
     public void checkPasswordVisibilityFalse() {
         Assertions.assertThat(loginPage.getPasswordInputType())
                 .as("Проверка видимости пароля с видимого на невидимый")
@@ -280,6 +293,7 @@ public class MyStepdefs {
     }
 
     @Тогда("появляется сообщение о некорректности введенных данных")
+    @Severity(SeverityLevel.NORMAL)
     public void checkErrorMessage() {
         Assertions.assertThat(driver.findElement(By.cssSelector("#alerts-container > div.alert.alert-error")).isDisplayed())
                 .as("Проверка на некорректно введеннные данные")
@@ -292,6 +306,7 @@ public class MyStepdefs {
     }
 
     @Тогда("появляется попап с информацией о восстановление пароля")
+    @Severity(SeverityLevel.CRITICAL)
     public void checkPopUpVisibilityTrue() {
         Assertions.assertThat(loginPage.getRestoreAccessDisplayAttr())
                 .as("Проверка на появление ПопАпа при нажатие Восстановить доступ ")
@@ -304,6 +319,7 @@ public class MyStepdefs {
     }
 
     @Тогда("попап закрывается")
+    @Severity(SeverityLevel.BLOCKER)
     public void CheckPopUpVisibilityFalse() {
         Assertions.assertThat(loginPage.getRestoreAccessDisplayAttr())
                 .as("Проверка на закрытие ПопАпа при нажатие соответстующей кнопки")

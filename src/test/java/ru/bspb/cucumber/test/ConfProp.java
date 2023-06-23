@@ -9,6 +9,7 @@ public class ConfProp {
     protected static Properties PROPERTIES;
 
     static {
+        System.setProperty("webdriver.http.factory", "jdk-http-client");
         try{
             fileInputStream = new FileInputStream("src/test/resources/conf.properties");
             PROPERTIES = new Properties();
